@@ -1,10 +1,10 @@
 ### 01 Common Variables + RG ###
-resource_group_name = "Private-ChatGPT-OpenAI-LibreChat-Example"
+resource_group_name = "Nutrisnap-OpenAI-LibreChat-Example"
 location            = "SwedenCentral"
 tags = {
   Terraform   = "True"
   Description = "Private ChatGPT hosted on Azure OpenAI (Librechat)"
-  Author      = "Marcel Lupo"
+  Author      = "Adam Bloom"
   GitHub      = "https://github.com/Pwd9000-ML/terraform-azurerm-openai-private-chatgpt"
 }
 
@@ -52,22 +52,6 @@ oai_network_acls = null
 oai_storage      = null
 oai_model_deployment = [
   {
-    deployment_id  = "gpt-35-turbo"
-    model_name     = "gpt-35-turbo"
-    model_format   = "OpenAI"
-    model_version  = "1106"
-    scale_type     = "Standard"
-    scale_capacity = 20 # 34K == Roughly 204 RPM (Requests per minute)
-  },
-  {
-    deployment_id  = "gpt-4"
-    model_name     = "gpt-4"
-    model_format   = "OpenAI"
-    model_version  = "1106-Preview"
-    scale_type     = "Standard"
-    scale_capacity = 20
-  },
-  {
     deployment_id  = "gpt-4-vision-preview"
     model_name     = "gpt-4"
     model_format   = "OpenAI"
@@ -75,14 +59,14 @@ oai_model_deployment = [
     scale_type     = "Standard"
     scale_capacity = 5
   },
-  {
-    deployment_id  = "dall-e-3"
-    model_name     = "dall-e-3"
-    model_format   = "OpenAI"
-    model_version  = "3.0"
-    scale_type     = "Standard"
-    scale_capacity = 2
-  }
+  # {
+  #   deployment_id  = "dall-e-3"
+  #   model_name     = "dall-e-3"
+  #   model_format   = "OpenAI"
+  #   model_version  = "3.0"
+  #   scale_type     = "Standard"
+  #   scale_capacity = 2
+  # }
 ]
 
 ### 05 cosmosdb ###
@@ -90,7 +74,7 @@ cosmosdb_name                    = "demogptcosmosdb"
 cosmosdb_offer_type              = "Standard"
 cosmosdb_kind                    = "MongoDB"
 cosmosdb_automatic_failover      = false
-use_cosmosdb_free_tier           = true
+use_cosmosdb_free_tier           = false
 cosmosdb_consistency_level       = "BoundedStaleness"
 cosmosdb_max_interval_in_seconds = 10
 cosmosdb_max_staleness_prefix    = 200
@@ -126,12 +110,12 @@ libre_app_allowed_ip_addresses = [
 
 ### LibreChat App Settings ###
 # Server Config
-libre_app_title         = "PRIVATE DEMO CHATBOT"
-libre_app_custom_footer = "Privately hosted GPT App powered by Azure OpenAI and LibreChat"
+libre_app_title         = "NutriSnap Chatbot (DEMO)"
+libre_app_custom_footer = "Privately hosted GPT-4-Vision App powered by Azure OpenAI, Azure App Service, and LibreChat"
 libre_app_host          = "0.0.0.0"
 libre_app_port          = 80
-libre_app_docker_image  = "ghcr.io/danny-avila/librechat-dev-api:81ff598eba338e680c91e237cea3e3df870bce23" #v0.6.6 (Pre-release)
-libre_app_mongo_uri     = null                                                                             # leave null to use the cosmosdb uri saved in keyvault created by this module
+libre_app_docker_image  = "ghcr.io/illgitthat/librechat-dev-api:f7761df52cf6890988bd24da89a22276b2eb2ee0" #v0.6.6 (Pre-release)
+libre_app_mongo_uri     = null                                                                            # leave null to use the cosmosdb uri saved in keyvault created by this module
 libre_app_domain_client = "http://localhost:80"
 libre_app_domain_server = "http://localhost:80"
 
@@ -144,12 +128,10 @@ libre_app_endpoints = "azureOpenAI"
 
 # Azure OpenAI
 libre_app_az_oai_api_key                      = null # leave null to use the key saved in keyvault created by this module
-libre_app_az_oai_models                       = "gpt-35-turbo,gpt-4,gpt-4-vision-preview"
+libre_app_az_oai_models                       = "gpt-4-vision-preview"
 libre_app_az_oai_use_model_as_deployment_name = true
 libre_app_az_oai_instance_name                = null # leave null to use the instance name created by this module
-libre_app_az_oai_api_version                  = "2023-07-01-preview"
-libre_app_az_oai_dall3_api_version            = "2023-12-01-preview"
-libre_app_az_oai_dall3_deployment_name        = "dall-e-3"
+libre_app_az_oai_api_version                  = "2024-02-15-preview"
 
 # Plugins
 libre_app_debug_plugins     = true
@@ -194,5 +176,5 @@ libre_app_violations = {
 # Custom Domain and Managed Certificate (Optional)
 libre_app_custom_domain_create     = true
 librechat_app_custom_domain_name   = "privategptchatbot"
-librechat_app_custom_dns_zone_name = "domain.com"
+librechat_app_custom_dns_zone_name = "adamcbloom.com"
 dns_resource_group_name            = "DNS-Resource-Group-Name"
