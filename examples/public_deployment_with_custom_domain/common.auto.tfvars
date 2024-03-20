@@ -5,7 +5,7 @@ tags = {
   Terraform   = "True"
   Description = "Private ChatGPT hosted on Azure OpenAI (Librechat)"
   Author      = "Adam Bloom"
-  GitHub      = "https://github.com/Pwd9000-ML/terraform-azurerm-openai-private-chatgpt"
+  GitHub      = "https://github.com/illgitthat/terraform-azurerm-openai-private-chatgpt"
 }
 
 ### 02 networking ###
@@ -114,8 +114,8 @@ libre_app_title         = "NutriSnap Chatbot (DEMO)"
 libre_app_custom_footer = "Privately hosted GPT-4-Vision App powered by Azure OpenAI, Azure App Service, and LibreChat"
 libre_app_host          = "0.0.0.0"
 libre_app_port          = 80
-libre_app_docker_image  = "ghcr.io/illgitthat/librechat-dev-api:f7761df52cf6890988bd24da89a22276b2eb2ee0" #v0.6.6 (Pre-release)
-libre_app_mongo_uri     = null                                                                            # leave null to use the cosmosdb uri saved in keyvault created by this module
+libre_app_docker_image  = "ghcr.io/illgitthat/librechat-dev-api:latest"
+libre_app_mongo_uri     = null # leave null to use the cosmosdb uri saved in keyvault created by this module
 libre_app_domain_client = "http://localhost:80"
 libre_app_domain_server = "http://localhost:80"
 
